@@ -23,15 +23,15 @@ export const Splash: React.FC<SplashProps> = ({ handleReady }) => {
     <main className="w-full h-full flex items-center justify-center bg-primary-200 p-4 bg-[length:auto_50%] lg:bg-auto bg-colorWash bg-no-repeat bg-right-top">
       <div className="flex flex-col gap-8 lg:gap-12 items-center max-w-full lg:max-w-3xl">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-balance text-left">
-          Groq &amp;
+          Groq Llama 3.1 &amp;
           <br />
-          Llama 3.1 &amp;
+          Daily web-RTC &amp;
           <br />
-          Daily &amp;
-          <br />
-          RTVI
+          RTVI Chat-bot pipeline
           <br />
           Voice-to-Voice Demo
+          <br />
+          Default support Chinese chat with bot
         </h1>
 
         <Button onClick={handleReady} disabled={!isReady}>
@@ -55,6 +55,15 @@ export const Splash: React.FC<SplashProps> = ({ handleReady }) => {
             >
               <Book className="size-6" />
               Demo source code
+            </a>
+          </Button>
+          <Button variant="light" asChild>
+            <a
+              href="https://github.com/weedge/chat-bot"
+              className="text-indigo-600"
+            >
+              <Book className="size-6" />
+              Backend chat bot RTVI Bot source code
             </a>
           </Button>
         </footer>
