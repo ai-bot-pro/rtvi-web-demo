@@ -6,31 +6,26 @@ import { VoiceClientAudio, VoiceClientProvider } from "realtime-ai-react";
 import { Header } from "./components/ui/header";
 import { TooltipProvider } from "./components/ui/tooltip";
 import App from "./App";
-import { defaultConfig,defaultZHConfig } from "./config";
+import { defaultConf } from "./config";
 import { Splash } from "./Splash";
 
 import "./global.css"; // Note: Core app layout can be found here
 
 
-console.log(import.meta.env);
 // Show warning on Firefox
 // @ts-expect-error - Firefox is not well support
 const isFirefox: boolean = typeof InstallTrigger !== "undefined";
 
-let config = defaultZHConfig;
-if (import.meta.env.LANGUAGE == "en"){
-  config = defaultConfig;
-}
-console.log("config", config);
+console.log(defaultConf);
 
 const voiceClient = new VoiceClient({
   baseUrl: import.meta.env.VITE_BASE_URL,
   enableMic: true,
-  config: config,
+  config: defaultConf,
 });
 
 export const Layout = () => {
-  const [showSplash, setShowSplash] = useState<boolean>(true);
+  const [showSplash, setShowSplash] = useState<boolean>(false);
 
   if (showSplash) {
     return <Splash handleReady={() => setShowSplash(false)} />;

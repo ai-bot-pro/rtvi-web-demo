@@ -13,6 +13,8 @@ export const VAD_MIN_SPEECH_FRAMES = 5;
 export const VAD_REDEMPTION_FRAMES = 3;
 export const VAD_PRESPEECH_PAD_FRAMES = 1;
 
+export const language = import.meta.env.VITE_LANGUAGE as 'en' | 'zh';
+
 export type Language = {
   language: string;
   model_id: string;
@@ -31,8 +33,8 @@ export type LLMModel = {
 };
 
 export const ttsVoices: Voice[] = [
-  { label: "English Default", id: "79a125e8-cd45-4c13-8a67-188112f4dd22" },
-  { label: "Chinese Default", id: "2ee87190-8f84-4925-97da-e52547f9462c" },
+  { label: "Default Chinese Children", id: "2ee87190-8f84-4925-97da-e52547f9462c" },
+  { label: "Default English", id: "79a125e8-cd45-4c13-8a67-188112f4dd22" },
   { label: "California Girl", id: "b7d50908-b17c-442d-ad8d-810c63997ed9" },
   { label: "Friendly Reading Man", id: "69267136-1bdc-412f-ad78-0caad210fb40" },
   { label: "Kentucky Man", id: "726d5ae5-055f-4c3d-8355-d9677de68937" },
@@ -65,7 +67,7 @@ export const llmModels: LLMModel[] = [
   { label: "Gemma 7b-it", id: "gemma-7b-it" },
 ];
 
-export const defaultConfig = {
+const defaultENConfig = {
   llm: {
     model: llmModels[0].id,
     messages: [
@@ -78,11 +80,11 @@ export const defaultConfig = {
     ],
   },
   tts: {
-    voice: ttsVoices[0].id,
+    voice: ttsVoices[1].id,
   },
 };
 
-export const defaultZHConfig = {
+const defaultZHConfig = {
   llm: {
     model: llmModels[0].id,
     messages: [
@@ -95,6 +97,57 @@ export const defaultZHConfig = {
     ],
   },
   tts: {
-    voice: ttsVoices[1].id,
+    voice: ttsVoices[0].id,
   },
 };
+const defaultConfig = {
+  en: defaultENConfig,
+  zh: defaultZHConfig,
+};
+
+export const defaultConf = defaultConfig[language];
+
+const defaultENMessages = {
+  bot_ready: {
+    role: "assistant",
+    content: "please greet the user, e.g. say hello",
+  },
+  voice_change: {
+    role: "assistant",
+    content: "Ask if the user prefers the new voice you have been given.",
+  },
+  model_change: {
+    role: "user",
+    content: `I just changed your model! Thank me for the change.`,
+  },
+  system_prompt_change: {
+    role: "user",
+    content: `I just changed your model system prompt! Thank me for the change.`,
+  },
+};
+
+const defaultZHMessages = {
+  bot_ready: {
+    role: "assistant",
+    content: "请问候一下用户，比如： 你好，很高兴和你聊天",
+  },
+  voice_change: {
+    role: "assistant",
+    content: "询问用户是否喜欢给你的新声音。",
+  },
+  model_change: {
+    role: "user",
+    content: `我只是改变了你的模型!谢谢我的改变。`,
+  },
+  system_prompt_change: {
+    role: "user",
+    content: `我刚刚更改了你的模型系统提示!谢谢我的改变。`,
+  },
+};
+
+const defaultMessages = {
+  en: defaultENMessages,
+  zh: defaultZHMessages,
+};
+
+export const defaultLLMCtxMessage = defaultMessages[language];

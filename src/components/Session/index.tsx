@@ -4,6 +4,8 @@ import { LineChart, LogOut, Settings, StopCircle } from "lucide-react";
 import { TransportState, VoiceEvent } from "realtime-ai";
 import { useVoiceClient, useVoiceClientEvent } from "realtime-ai-react";
 
+import { defaultLLMCtxMessage  } from "@/config";
+
 import StatsAggregator from "../../utils/stats_aggregator";
 import Configuration from "../Configuration";
 import Stats from "../Stats";
@@ -38,10 +40,7 @@ export const Session = React.memo(
     useVoiceClientEvent(
       VoiceEvent.BotReady,
       useCallback(() => {
-        voiceClient.appendLLMContext({
-          role: "assistant",
-          content: "Greet the user",
-        });
+        voiceClient.appendLLMContext(defaultLLMCtxMessage.bot_ready);
       }, [voiceClient])
     );
 

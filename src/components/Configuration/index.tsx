@@ -2,8 +2,11 @@ import React from "react";
 import { VoiceClientConfigOptions } from "realtime-ai";
 import { useVoiceClient } from "realtime-ai-react";
 
-import { Voice } from "@/config";
+import { Voice} from "@/config";
+import { defaultLLMCtxMessage } from "@/config";
+import { defaultConf} from "@/config";
 
+import { LLMSystemInput } from "./LLMSystemInput";
 import ModelSelect from "./ModelSelect";
 import VoiceSelect from "./VoiceSelect";
 
@@ -27,10 +30,7 @@ const Configuration: React.FC<{ showAllOptions: boolean }> = ({
     });
 
     // Prompt the LLM to speak
-    voiceClient.appendLLMContext({
-      role: "assistant",
-      content: "Ask if the user prefers the new voice you have been given.",
-    });
+    voiceClient.appendLLMContext(defaultLLMCtxMessage.voice_change);
   };
 
   const handleModelChange = (model: string) => {
@@ -42,10 +42,21 @@ const Configuration: React.FC<{ showAllOptions: boolean }> = ({
       voiceClient.interrupt();
 
       setTimeout(() => {
-        voiceClient.appendLLMContext({
-          role: "user",
-          content: `I just changed your model to use ${model}! Thank me for the change.`,
-        });
+        voiceClient.appendLLMContext(defaultLLMCtxMessage.model_change);
+      }, 500);
+    }
+  };
+
+  const handleSystemPromptChange = (prompt: string) => {
+    updateConfig({
+      llm: { messages: [{role:"system", content: prompt}]},
+    });
+
+    if (voiceClient.state === "ready") {
+      voiceClient.interrupt();
+
+      setTimeout(() => {
+        voiceClient.appendLLMContext(defaultLLMCtxMessage.system_prompt_change);
       }, 500);
     }
   };
@@ -56,6 +67,7 @@ const Configuration: React.FC<{ showAllOptions: boolean }> = ({
       {showAllOptions && (
         <VoiceSelect onSelect={(voice: Voice) => handleVoiceChange(voice)} />
       )}
+      <LLMSystemInput onChange={(prompt) => handleSystemPromptChange(prompt)} defaultValue={defaultConf.llm.messages[0].content} />
     </div>
   );
 };
