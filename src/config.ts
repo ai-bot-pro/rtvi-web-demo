@@ -13,7 +13,8 @@ export const VAD_MIN_SPEECH_FRAMES = 5;
 export const VAD_REDEMPTION_FRAMES = 3;
 export const VAD_PRESPEECH_PAD_FRAMES = 1;
 
-export const language = import.meta.env.VITE_LANGUAGE as 'en' | 'zh';
+export let language = import.meta.env.VITE_LANGUAGE as 'en' | 'zh';
+language = language || 'en';
 
 export type Language = {
   language: string;
