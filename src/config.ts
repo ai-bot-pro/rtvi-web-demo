@@ -33,7 +33,7 @@ export type LLMModel = {
   id: string;
 };
 
-export const ttsVoices: Voice[] = [
+export const cartesiaTTSVoices: Voice[] = [
   { label: "Default Chinese Children", id: "2ee87190-8f84-4925-97da-e52547f9462c" },
   { label: "Default English", id: "79a125e8-cd45-4c13-8a67-188112f4dd22" },
   { label: "California Girl", id: "b7d50908-b17c-442d-ad8d-810c63997ed9" },
@@ -56,7 +56,7 @@ export const languages: Language[] = [
   },
 ];
 
-export const llmModels: LLMModel[] = [
+export const groqLLMModels: LLMModel[] = [
   { label: "LLama3.1 70b", id: "llama-3.1-70b-versatile" },
   { label: "Llama3.1 8b", id: "llama-3.1-8b-instant" },
   { label: "LLama3 70b-8192-tool-use", id: "llama3-groq-70b-8192-tool-use-preview" },
@@ -70,7 +70,7 @@ export const llmModels: LLMModel[] = [
 
 const defaultENConfig = {
   llm: {
-    model: llmModels[0].id,
+    model: groqLLMModels[0].id,
     messages: [
       {
         role: "system",
@@ -80,14 +80,12 @@ const defaultENConfig = {
       },
     ],
   },
-  tts: {
-    voice: ttsVoices[1].id,
-  },
+  tts: {},
 };
 
 const defaultZHConfig = {
   llm: {
-    model: llmModels[0].id,
+    model: groqLLMModels[0].id,
     messages: [
       {
         role: "system",
@@ -97,9 +95,7 @@ const defaultZHConfig = {
       },
     ],
   },
-  tts: {
-    voice: ttsVoices[0].id,
-  },
+  tts: {},
 };
 const defaultConfig = {
   en: defaultENConfig,

@@ -113,7 +113,7 @@ export const Session = React.memo(
               <Card.CardTitle>Configuration</Card.CardTitle>
             </Card.CardHeader>
             <Card.CardContent>
-              <Configuration showAllOptions={true} />
+              <Configuration showAllOptions={false} />
             </Card.CardContent>
             <Card.CardFooter>
               <Button onClick={() => setShowDevices(false)}>Close</Button>

@@ -20,7 +20,7 @@ export const Configure: React.FC<ConfigureProps> = ({
     <>
       <section className="flex flex-col flex-wrap gap-3 lg:gap-4">
         <DeviceSelect hideMeter={false} />
-        <Configuration showAllOptions={true} />
+        <Configuration showAllOptions={false} />
       </section>
 
       <section className="flex flex-col gap-4 border-y border-primary-hairline py-4 mt-4">
